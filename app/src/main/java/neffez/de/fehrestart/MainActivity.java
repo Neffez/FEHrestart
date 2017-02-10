@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean deleteXml() throws Exception {
-        Process su = Runtime.getRuntime().exec("su");
-        DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
+        final Process su = Runtime.getRuntime().exec("su");
+        final DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
         outputStream.writeBytes("rm /data/data/com.nintendo.zaba/shared_prefs/deviceAccount:.xml\n");
         outputStream.flush();
         outputStream.writeBytes("exit\n");
-        outputStream.flush();
+        outputStream.close();
         return su.waitFor() == 0;
     }
 
